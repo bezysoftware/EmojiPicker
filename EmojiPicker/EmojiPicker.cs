@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using NeoSmart.Unicode;
+using Windows.UI.Core;
 
 namespace EmojiPicker
 {
@@ -1142,11 +1143,11 @@ namespace EmojiPicker
             this.SetCurrentEmoji(this.emojiGroups[0]);
         }
 
-        protected override void OnKeyUp(KeyRoutedEventArgs e)
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             if (e.Key.HasFlag(VirtualKey.Tab))
             {
-                var shift = e.Key.HasFlag(VirtualKey.Shift);
+                var shift = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift) == CoreVirtualKeyStates.Down;
                 var current = Grid.GetColumn(this.highlightBorder);
                 var i = this.PositiveModulo(shift ? current - 2 : current, 6);
                 this.SetCurrentEmoji(this.emojiGroups[i]);
