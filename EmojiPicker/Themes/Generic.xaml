@@ -1,0 +1,162 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EmojiPicker">
+
+    <Style TargetType="local:EmojiPicker">
+        <Setter Property="MaxHeight" Value="300" />
+        <Setter Property="MaxWidth" Value="300" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:EmojiPicker">
+                    <Grid 
+                        MaxWidth="{TemplateBinding MaxWidth}"
+                        MaxHeight="{TemplateBinding MaxHeight}"
+                        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                        <Grid.Resources>
+                            <Style x:Key="BasicButtonStyle" TargetType="Button">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Width" Value="40" />
+                                <Setter Property="Height" Value="40" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                                <Setter Property="IsTabStop" Value="False" />
+                            </Style>
+
+                            <Style TargetType="Button" BasedOn="{StaticResource BasicButtonStyle}">
+
+                            </Style>
+                        </Grid.Resources>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Button 
+                            x:Name="CloseButton"
+                            Grid.Column="2"
+                            Content="×"
+                            FontSize="{ThemeResource TextStyleLargeFontSize}"
+                            Style="{ThemeResource BasicButtonStyle}"
+                            />
+
+                        <Button 
+                            x:Name="SkinToneButton"
+                            Grid.Column="1"
+                            Content="✋"
+                            Visibility="Collapsed"
+                            Style="{ThemeResource BasicButtonStyle}"
+                            />
+
+                        <GridView
+                            x:Name="EmojiPresenter"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="3"
+                            IsTabStop="False"
+                            Margin="12 0">
+
+                            <GridView.ItemContainerStyle>
+                                <Style TargetType="GridViewItem">
+                                    <Setter Property="Margin" Value="0" />
+                                    <Setter Property="IsTabStop" Value="False" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </GridView.ItemContainerStyle>
+
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
+                                        Text="{Binding Key}"
+                                        HorizontalAlignment="Stretch" 
+                                        VerticalAlignment="Center"
+                                        TextAlignment="Center">
+                        
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="{Binding Value}" />
+                                        </ToolTipService.ToolTip>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+
+                        </GridView>
+
+                        <Grid
+                            Grid.Row="2"
+                            Grid.ColumnSpan="3"
+                            Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
+                            HorizontalAlignment="Stretch">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button 
+                                x:Name="SmilesButton"
+                                Grid.Column="1"
+                                Content="😃"
+                                Tag="0" 
+                                />
+                            <Button 
+                                x:Name="PeopleButton"
+                                Grid.Column="2"
+                                Content="👩" 
+                                Tag="1"
+                                />
+                            <Button 
+                                x:Name="BalloonButton"
+                                Grid.Column="3" 
+                                Content="🎈" 
+                                Tag="2" 
+                                />
+                            <Button 
+                                x:Name="PizzaButton"
+                                Grid.Column="4"
+                                Content="🍕"
+                                Tag="3"
+                                />
+                            <Button 
+                                x:Name="CarButton"
+                                Grid.Column="5"
+                                Content="🚗" 
+                                Tag="4"
+                                />
+                            <Button 
+                                x:Name="HeartButton"
+                                Grid.Column="6" 
+                                Content="❤" 
+                                Tag="5"  
+                                />
+
+                            <Border 
+                                x:Name="HighlightBorder"
+                                Grid.Column="1"
+                                VerticalAlignment="Bottom"
+                                Height="4"
+                                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
