@@ -6,7 +6,7 @@ Emoji Picker Dialog for UWP
 ## Installation
 
 ```
-Install-Package EmojiPicker -Version 1.0.0 
+Install-Package EmojiPicker
 ```
 
 [Nuget](https://www.nuget.org/packages/EmojiPicker)
