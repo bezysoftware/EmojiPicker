@@ -17,7 +17,7 @@ namespace EmojiPicker
 {
     public class EmojiPicker : Control
     {
-        private readonly Dictionary<int, SingleEmoji[]> emojiGroups = new Dictionary<int, SingleEmoji[]>
+        private static readonly Dictionary<int, SingleEmoji[]> EmojiGroups = new Dictionary<int, SingleEmoji[]>
         {
             { 0, new []
                 {
@@ -1058,12 +1058,12 @@ namespace EmojiPicker
 
         private readonly EmojiSkinTone[] skinTones =
         {
-            new EmojiSkinTone("✋", ""),
-            new EmojiSkinTone("✋🏻", ": light skin tone"),
-            new EmojiSkinTone("✋🏼", ": medium-light skin tone"),
-            new EmojiSkinTone("✋🏽", ": medium skin tone"),
-            new EmojiSkinTone("✋🏾", ": medium-dark skin tone"),
-            new EmojiSkinTone("✋🏿", ": dark skin tone")
+            new EmojiSkinTone("✋", "", EmojiGroups[1]),
+            new EmojiSkinTone("✋🏻", ": light skin tone", EmojiGroups[1]),
+            new EmojiSkinTone("✋🏼", ": medium-light skin tone", EmojiGroups[1]),
+            new EmojiSkinTone("✋🏽", ": medium skin tone", EmojiGroups[1]),
+            new EmojiSkinTone("✋🏾", ": medium-dark skin tone", EmojiGroups[1]),
+            new EmojiSkinTone("✋🏿", ": dark skin tone", EmojiGroups[1])
         };
 
         private static Popup openPopup;
@@ -1140,7 +1140,7 @@ namespace EmojiPicker
                 button.Click += this.ChangeCategoryClick;
             }
 
-            this.SetCurrentEmoji(this.emojiGroups[0]);
+            this.SetCurrentEmoji(0);
         }
 
         protected override void OnKeyDown(KeyRoutedEventArgs e)
@@ -1150,14 +1150,14 @@ namespace EmojiPicker
                 var shift = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift) == CoreVirtualKeyStates.Down;
                 var current = Grid.GetColumn(this.highlightBorder);
                 var i = this.PositiveModulo(shift ? current - 2 : current, 6);
-                this.SetCurrentEmoji(this.emojiGroups[i]);
+                this.SetCurrentEmoji(i);
                 Grid.SetColumn(this.highlightBorder, i + 1);
             }
         }
 
         private void EmojiSelected(object sender, SelectionChangedEventArgs e)
         {
-            this.selectedEmoji = ((KeyValuePair<string, string>)e.AddedItems.First()).Key;
+            this.selectedEmoji = ((SingleEmoji)e.AddedItems.First()).ToString();
             openPopup.IsOpen = false;
         }
 
@@ -1165,7 +1165,7 @@ namespace EmojiPicker
         {
             var button = (Button)sender;
             var tag = int.Parse(button.Tag.ToString());
-            this.SetCurrentEmoji(this.emojiGroups[tag]);
+            this.SetCurrentEmoji(tag);
             this.skinToneButton.Visibility = tag == 1 ? Visibility.Visible : Visibility.Collapsed;
             Grid.SetColumn(this.highlightBorder, tag + 1);
         }
@@ -1180,10 +1180,9 @@ namespace EmojiPicker
             return (x % m + m) % m;
         }
 
-        private void SetCurrentEmoji(SingleEmoji[] emoji)
+        private void SetCurrentEmoji(int id)
         {
-            this.emojiPresenter.ItemsSource = emoji.Select(single => new KeyValuePair<string, string>(single.ToString(), single.Name)).ToList();
-
+            this.emojiPresenter.ItemsSource = id == 1 ? this.skinTones[this.skinToneIndex].SkinEmoji : EmojiGroups[id];
         }
 
         private void SkinToneButtonClick(object sender, RoutedEventArgs e)
@@ -1192,7 +1191,7 @@ namespace EmojiPicker
             var skinTone = this.skinTones[this.skinToneIndex];
 
             this.skinToneButton.Content = skinTone.Emoji;
-            this.SetCurrentEmoji(this.emojiGroups[1].Select(emoji => Emoji.All.FirstOrDefault(one => one.Name == $"{emoji.Name}{skinTone.Name}") ?? emoji).ToArray());
+            this.SetCurrentEmoji(1);
         }
     }
 }
