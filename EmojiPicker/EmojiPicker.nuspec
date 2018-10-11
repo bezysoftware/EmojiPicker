@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>EmojiPicker</id>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 		<title>UWP EmojiPicker</title>
 		<authors>bezysoftware</authors>
 		<owners>bezysoftware</owners>
@@ -18,7 +18,6 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<!-- XAML controls -->
 		<file src="bin\release\**" target="lib\uap10.0\"/>
 	</files>
 </package>

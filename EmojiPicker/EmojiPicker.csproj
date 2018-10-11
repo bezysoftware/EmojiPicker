@@ -109,6 +109,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="EmojiPicker.cs" />
+    <Compile Include="EmojiPicker.Groups.cs">
+      <DependentUpon>EmojiPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmojiSkinTone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\EmojiPicker.rd.xml" />
