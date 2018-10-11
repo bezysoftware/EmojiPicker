@@ -100,7 +100,7 @@ namespace EmojiPicker
             }
 
             this.SetCurrentEmoji(0);
-            this.allEmoji = new ObservableCollection<SingleEmoji>(AllEmoji());
+            this.allEmoji = new ObservableCollection<SingleEmoji>();
         }
 
         protected override void OnKeyDown(KeyRoutedEventArgs e)
@@ -138,6 +138,7 @@ namespace EmojiPicker
                 this.SetCurrentEmoji(0);
                 Grid.SetColumn(this.highlightBorder, 1);
                 this.skinToneButton.Visibility = Visibility.Collapsed;
+                this.allEmoji.Clear();
             }
             else
             {
