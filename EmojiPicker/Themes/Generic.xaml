@@ -97,6 +97,10 @@
                                 </Style>
                             </GridView.ItemContainerStyle>
 
+                            <GridView.ItemContainerTransitions>
+                                <TransitionCollection />
+                            </GridView.ItemContainerTransitions>
+                            
                             <GridView.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock 
